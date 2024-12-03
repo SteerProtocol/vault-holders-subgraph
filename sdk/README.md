@@ -3,26 +3,6 @@
 
 This SDK provides a simple interface for querying Steer Protocol vault token balances using the Graph Protocol's subgraph.
 
-## Installation
-
-```bash
-npm install @steerprotocol/sdk  // Replace with your actual package name after publishing
-```
-
-## Usage
-
-### CommonJS
-
-```javascript
-const SteerSDK = require('@steerprotocol/sdk'); // Replace with your actual package name after publishing
-```
-
-### ES Modules
-
-```javascript
-import SteerSDK from '@steerprotocol/sdk'; // Replace with your actual package name after publishing
-```
-
 ### Initializing the SDK
 
 ```javascript
