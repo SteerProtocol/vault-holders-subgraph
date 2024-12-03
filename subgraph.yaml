@@ -3,12 +3,34 @@ schema:
   file: ./generated/schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: erc20
-    network: mainnet
+    name: Factory
+    network: arbitrum-one
     source:
-      address: "0x0000000000085d4780b73119b644ae5ecd22b376"
+      address: "0x9f5b097AD23e2CF4F34e502A3E41D941678877Dc"
+      abi: Factory
+      startBlock: 88698956
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ERC20Contract
+      abis:
+        - name: IERC20
+          file: ./node_modules/@openzeppelin/contracts/build/contracts/IERC20Metadata.json
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: VaultCreated(address,address,string,indexed uint256,address)
+          handler: handleVaultCreated
+      file: ./mappings/factory.ts
+
+templates:
+  - kind: ethereum/contract
+    name: ERC20
+    network: arbitrum-one
+    source:
       abi: IERC20
-      startBlock: 13089800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
