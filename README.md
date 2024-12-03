@@ -18,18 +18,15 @@ npm install
 # or
 
 yarn
-````
+```
 
 4. Update the `deploy` script in `package.json` to match the name of your subgraph:
 
 ```javascript
-"deploy": "graph deploy --node https://api.thegraph.com/deploy/ dabit3/erc20subgraphtst"
+"deploy": "graph deploy --node https://api.thegraph.com/deploy/your-username/your-subgraphname"
 
 # update
-dabit3/erc20subgraphtst"
-
-# to 
-your-username/your-subgraphname"
+your-username/your-subgraphname
 ```
 
 5. Authenticate
@@ -44,7 +41,9 @@ graph auth
 yarn deploy
 ```
 
-Example query
+## Example Queries
+
+### Get All Balances for an Account
 
 ```graphql
 {
@@ -57,5 +56,50 @@ Example query
       }
     }
   }
+}
+```
+
+### Get All Holders of a Specific Vault
+
+```graphql
+{
+  erc20Contract(id: "0x1234...") {  # Replace with vault address
+    symbol
+    name
+    balances(where: { valueExact_gt: "0" }) {
+      account {
+        id
+      }
+      value
+      valueExact
+    }
+  }
+}
+```
+
+## Query Variables
+
+For queries that require variables, you can pass them like this:
+
+```graphql
+query getVaultHolders($vaultAddress: String!) {
+  erc20Contract(id: $vaultAddress) {
+    symbol
+    name
+    balances(where: { valueExact_gt: "0" }) {
+      account {
+        id
+      }
+      value
+      valueExact
+    }
+  }
+}
+```
+
+Variables:
+```json
+{
+  "vaultAddress": "0x1234..." // Replace with actual vault address
 }
 ```
